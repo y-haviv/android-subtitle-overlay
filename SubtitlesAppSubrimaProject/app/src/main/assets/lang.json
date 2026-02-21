@@ -1,0 +1,682 @@
+{
+  "mg": {
+    "code": "mg",
+    "name": "Malagasy",
+    "number": 59,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "tk": {
+    "code": "tk",
+    "name": "Turkmen",
+    "number": 76,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "lb": {
+    "code": "lb",
+    "name": "Luxembourgish, Letzeburgesch",
+    "number": 20,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "or": {
+    "code": "or",
+    "name": "Oriya",
+    "number": 62,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "en": {
+    "code": "en",
+    "name": "English",
+    "number": 30,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip",
+    "transcript_folder": "en"
+  },
+  "oc": {
+    "code": "oc",
+    "name": "Occitan",
+    "number": 26,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "no": {
+    "code": "no",
+    "name": "Norwegian",
+    "number": 69,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "sr": {
+    "code": "sr",
+    "name": "Serbian",
+    "number": 77,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "bs": {
+    "code": "bs",
+    "name": "Bosnian",
+    "number": 90,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "el": {
+    "code": "el",
+    "name": "Greek, Modern (1453\u2013)",
+    "number": 71,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "az": {
+    "code": "az",
+    "name": "Azerbaijani",
+    "number": 15,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "lo": {
+    "code": "lo",
+    "name": "Lao",
+    "number": 12,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "zh-HK": {
+    "code": "zh-HK",
+    "name": "Chinese",
+    "number": 85,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip",
+    "transcript_folder": "zh"
+  },
+  "cs": {
+    "code": "cs",
+    "name": "Czech",
+    "number": 79,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "sv": {
+    "code": "sv",
+    "name": "Swedish",
+    "number": 43,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "mn": {
+    "code": "mn",
+    "name": "Mongolian",
+    "number": 37,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "fi": {
+    "code": "fi",
+    "name": "Finnish",
+    "number": 32,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "tg": {
+    "code": "tg",
+    "name": "Tajik",
+    "number": 51,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "am": {
+    "code": "am",
+    "name": "Amharic",
+    "number": 46,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "nn": {
+    "code": "nn",
+    "name": "Norwegian Nynorsk",
+    "number": 17,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ja": {
+    "code": "ja",
+    "name": "Japanese",
+    "number": 40,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-ja-0.22.zip",
+    "transcript_folder": "ja"
+  },
+  "it": {
+    "code": "it",
+    "name": "Italian",
+    "number": 8,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-it-0.22.zip",
+    "transcript_folder": "it"
+  },
+  "ha": {
+    "code": "ha",
+    "name": "Hausa",
+    "number": 21,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "as": {
+    "code": "as",
+    "name": "Assamese",
+    "number": 11,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "fa": {
+    "code": "fa",
+    "name": "Persian",
+    "number": 29,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-fa-0.42.zip",
+    "transcript_folder": "fa"
+  },
+  "bn": {
+    "code": "bn",
+    "name": "Bengali",
+    "number": 82,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "mk": {
+    "code": "mk",
+    "name": "Macedonian",
+    "number": 54,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "sw": {
+    "code": "sw",
+    "name": "Swahili",
+    "number": 31,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "vi": {
+    "code": "vi",
+    "name": "Vietnamese",
+    "number": 45,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ur": {
+    "code": "ur",
+    "name": "Urdu",
+    "number": 41,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "bo": {
+    "code": "bo",
+    "name": "Tibetan",
+    "number": 74,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "hi": {
+    "code": "hi",
+    "name": "Hindi",
+    "number": 4,
+    "transcript_link": "https://archive.org/download/vosk-models-small/vosk-model-small-hi-0.22.zip",
+    "transcript_folder": "hi"
+  },
+  "mr": {
+    "code": "mr",
+    "name": "Marathi",
+    "number": 86,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "fy-NL": {
+    "code": "fy-NL",
+    "name": "Western Frisian",
+    "number": 3,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-nl-0.22.zip",
+    "transcript_folder": "nl"
+  },
+  "sk": {
+    "code": "sk",
+    "name": "Slovak",
+    "number": 65,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ln": {
+    "code": "ln",
+    "name": "Lingala",
+    "number": 2,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "gl": {
+    "code": "gl",
+    "name": "Galician",
+    "number": 92,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "sn": {
+    "code": "sn",
+    "name": "Shona",
+    "number": 53,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "su": {
+    "code": "su",
+    "name": "Sundanese",
+    "number": 87,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "tt": {
+    "code": "tt",
+    "name": "Tatar",
+    "number": 35,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "kn": {
+    "code": "kn",
+    "name": "Kannada",
+    "number": 93,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "yo": {
+    "code": "yo",
+    "name": "Yoruba",
+    "number": 6,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ps": {
+    "code": "ps",
+    "name": "Pashto, Pushto",
+    "number": 27,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "hy": {
+    "code": "hy",
+    "name": "Armenian",
+    "number": 34,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "pa-IN": {
+    "code": "pa-IN",
+    "name": "Punjabi, Panjabi",
+    "number": 25,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "nl": {
+    "code": "nl",
+    "name": "Dutch, Flemish",
+    "number": 23,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-nl-0.22.zip",
+    "transcript_folder": "nl"
+  },
+  "th": {
+    "code": "th",
+    "name": "Thai",
+    "number": 48,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "mt": {
+    "code": "mt",
+    "name": "Maltese",
+    "number": 73,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ar": {
+    "code": "ar",
+    "name": "Arabic",
+    "number": 55,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-ar-tn-0.1-linto.zip",
+    "transcript_folder": "ar"
+  },
+  "ba": {
+    "code": "ba",
+    "name": "Bashkir",
+    "number": 89,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "bg": {
+    "code": "bg",
+    "name": "Bulgarian",
+    "number": 78,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "yi": {
+    "code": "yi",
+    "name": "Yiddish",
+    "number": 42,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ru": {
+    "code": "ru",
+    "name": "Russian",
+    "number": 5,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip",
+    "transcript_folder": "ru"
+  },
+  "sv-SE": {
+    "code": "sv-SE",
+    "name": "Swedish",
+    "number": 84,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "tr": {
+    "code": "tr",
+    "name": "Turkish",
+    "number": 80,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-tr-0.3.zip",
+    "transcript_folder": "tr"
+  },
+  "sq": {
+    "code": "sq",
+    "name": "Albanian",
+    "number": 33,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "kk": {
+    "code": "kk",
+    "name": "Kazakh",
+    "number": 38,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "pl": {
+    "code": "pl",
+    "name": "Polish",
+    "number": 50,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "hr": {
+    "code": "hr",
+    "name": "Croatian",
+    "number": 9,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ky": {
+    "code": "ky",
+    "name": "Kirghiz, Kyrgyz",
+    "number": 66,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "hu": {
+    "code": "hu",
+    "name": "Hungarian",
+    "number": 49,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "si": {
+    "code": "si",
+    "name": "Sinhala, Sinhalese",
+    "number": 10,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "la": {
+    "code": "la",
+    "name": "Latin",
+    "number": 56,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "de": {
+    "code": "de",
+    "name": "German",
+    "number": 75,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-de-0.15.zip",
+    "transcript_folder": "de"
+  },
+  "ko": {
+    "code": "ko",
+    "name": "Korean",
+    "number": 14,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "id": {
+    "code": "id",
+    "name": "Indonesian",
+    "number": 22,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "sl": {
+    "code": "sl",
+    "name": "Slovenian",
+    "number": 47,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "be": {
+    "code": "be",
+    "name": "Belarusian",
+    "number": 57,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ta": {
+    "code": "ta",
+    "name": "Tamil",
+    "number": 36,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "da": {
+    "code": "da",
+    "name": "Danish",
+    "number": 7,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "sd": {
+    "code": "sd",
+    "name": "Sindhi",
+    "number": 91,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "et": {
+    "code": "et",
+    "name": "Estonian",
+    "number": 28,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "pt": {
+    "code": "pt",
+    "name": "Portuguese",
+    "number": 63,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-pt-0.3.zip",
+    "transcript_folder": "pt"
+  },
+  "ne": {
+    "code": "ne",
+    "name": "Nepali",
+    "number": 60,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "zh-TW": {
+    "code": "zh-TW",
+    "name": "Chinese",
+    "number": 94,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip",
+    "transcript_folder": "zh"
+  },
+  "zh-CN": {
+    "code": "zh-CN",
+    "name": "Chinese",
+    "number": 18,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip",
+    "transcript_folder": "zh"
+  },
+  "rw": {
+    "code": "rw",
+    "name": "Kinyarwanda",
+    "number": 88,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "es": {
+    "code": "es",
+    "name": "Spanish, Castilian",
+    "number": 19,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip",
+    "transcript_folder": "es"
+  },
+  "ht": {
+    "code": "ht",
+    "name": "Haitian, Haitian Creole",
+    "number": 39,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "tl": {
+    "code": "tl",
+    "name": "Tagalog",
+    "number": 64,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ms": {
+    "code": "ms",
+    "name": "Malay",
+    "number": 83,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "ro": {
+    "code": "ro",
+    "name": "Romanian, Moldavian, Moldovan",
+    "number": 70,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "pa": {
+    "code": "pa",
+    "name": "Punjabi, Panjabi",
+    "number": 68,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "uz": {
+    "code": "uz",
+    "name": "Uzbek",
+    "number": 52,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "km": {
+    "code": "km",
+    "name": "Central Khmer",
+    "number": 58,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "my": {
+    "code": "my",
+    "name": "Burmese",
+    "number": 67,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "fr": {
+    "code": "fr",
+    "name": "French",
+    "number": 0,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-fr-0.22.zip",
+    "transcript_folder": "fr"
+  },
+  "af": {
+    "code": "af",
+    "name": "Afrikaans",
+    "number": 24,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "gu": {
+    "code": "gu",
+    "name": "Gujarati",
+    "number": 16,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "so": {
+    "code": "so",
+    "name": "Somali",
+    "number": 81,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "uk": {
+    "code": "uk",
+    "name": "Ukrainian",
+    "number": 13,
+    "transcript_link": "https://archive.org/download/vosk-models-small/vosk-model-small-uk-v3-nano.zip",
+    "transcript_folder": "uk"
+  },
+  "ca": {
+    "code": "ca",
+    "name": "Catalan, Valencian",
+    "number": 44,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-ca-0.4.zip",
+    "transcript_folder": "ca"
+  },
+  "ml": {
+    "code": "ml",
+    "name": "Malayalam",
+    "number": 72,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "te": {
+    "code": "te",
+    "name": "Telugu",
+    "number": 61,
+    "transcript_link": "",
+    "transcript_folder": ""
+  },
+  "zh": {
+    "code": "zh",
+    "name": "Chinese",
+    "number": 1,
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip",
+    "transcript_folder": "zh"
+  },
+
+  "kz": {
+    "code": "kk",
+    "name": "Kazakh",
+    "number": -1,
+    "transcript_link": "https://archive.org/download/vosk-models-small/vosk-model-small-kz-0.15.zip",
+    "transcript_folder": ""
+  },
+  "vn": {
+    "code": "vn",
+    "number": -1,
+    "name": "Vietnamese",
+    "transcript_link": "https://alphacephei.com/vosk/models/vosk-model-small-vn-0.4.zip",
+    "transcript_folder": ""
+  }
+}

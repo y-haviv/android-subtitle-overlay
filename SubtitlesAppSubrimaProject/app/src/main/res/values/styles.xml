@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App theme -->
+    <style name="Theme.SubtitlesApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#2193B0</item>
+        <item name="colorPrimaryVariant">#197288</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:statusBarColor">#197288</item>
+    </style>
+
+    <!-- Custom button style used for main actions -->
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:insetLeft">16dp</item>
+        <item name="android:insetRight">16dp</item>
+        <item name="android:insetTop">12dp</item>
+        <item name="android:insetBottom">12dp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="backgroundTint">#2193B0</item>      <!-- teal background -->
+        <item name="android:textColor">#FFFFFF</item>   <!-- white text -->
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

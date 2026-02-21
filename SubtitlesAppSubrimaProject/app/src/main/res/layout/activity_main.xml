@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ********************************************************************
+    Main Activity Layout
+    ********************************************************************
+    Root layout: ConstraintLayout
+    - Provides flexible positioning of child views using constraints.
+    - Applies padding of 24dp to all sides and sets the background image.
+    - Context is MainActivity.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_subrima"
+    tools:context=".MainActivity">
+
+    <!--
+        ********************************************************************
+        Settings Button (Top-Left)
+        ********************************************************************
+        ImageButton to open app settings.
+        - ID: settingsButton
+        - Size: 48x48dp
+        - Transparent background
+        - Uses baseline_settings_24 drawable
+        - Accessibility: contentDescription set for screen readers
+        - Positioned at the top-left corner with margin
+    -->
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/baseline_settings_24"
+        android:contentDescription="@string/settings_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+    <!--
+        ********************************************************************
+        Title Image (Below Settings Button)
+        ********************************************************************
+        ImageView displaying the app title.
+        - ID: titleImage
+        - Width matches parent horizontally (0dp with constraints)
+        - Height: 100dp
+        - Scales image to fit center while maintaining aspect ratio
+        - Accessibility: contentDescription set for screen readers
+        - Positioned below the settings button, centered horizontally
+    -->
+    <ImageView
+        android:id="@+id/titleImage"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/subrima_title_image"
+        android:contentDescription="@string/title"
+        app:layout_constraintTop_toBottomOf="@+id/settingsButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!--
+        ********************************************************************
+        Main Toggle Button (Center)
+        ********************************************************************
+        ImageButton used to toggle the main On/Off state.
+        - ID: toggleMainButton
+        - Size: 100x100dp
+        - Transparent background for icon-only appearance
+        - Adjusts bounds and scales drawable to fit center
+        - Accessibility: contentDescription set for screen readers
+        - Centered both vertically and horizontally in the parent layout
+    -->
+    <ImageButton
+        android:id="@+id/toggleMainButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:src="@drawable/turn_on"
+        android:contentDescription="@string/power"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

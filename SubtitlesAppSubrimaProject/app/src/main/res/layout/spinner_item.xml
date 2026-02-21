@@ -1,0 +1,19 @@
+<!--
+    ********************************************************************
+    Spinner Selected Item Layout
+    ********************************************************************
+    Root Layout: TextView
+    - Purpose: defines the layout for the currently selected item displayed in a Spinner
+    - Width: match_parent to fill the Spinner width
+    - Height: wrap_content to adapt to content height
+    - Padding: 8dp on all sides for visual spacing and readability
+    - Text Size: 16sp for clear legibility
+    - Text Color: white (@android:color/white) to match app theme
+    - Usage: used as the view representing the selected Spinner item in ArrayAdapter or custom Spinner adapters
+-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@android:color/white"
+    android:padding="8dp"
+    android:textSize="16sp" />

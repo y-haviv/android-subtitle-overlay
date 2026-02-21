@@ -1,0 +1,19 @@
+<!--
+    ********************************************************************
+    Spinner Dropdown Item Layout
+    ********************************************************************
+    Root Layout: TextView
+    - Purpose: defines the layout for each item in a Spinner dropdown list
+    - Width: match_parent to fill the dropdown width
+    - Height: wrap_content to adapt to content size
+    - Padding: 12dp on all sides for touch-friendly spacing
+    - Text Size: 16sp for readability
+    - Text Color: black (@android:color/black)
+    - Usage: used as the item view in ArrayAdapter or custom Spinner adapters
+-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:textSize="16sp"
+    android:textColor="@android:color/black" />

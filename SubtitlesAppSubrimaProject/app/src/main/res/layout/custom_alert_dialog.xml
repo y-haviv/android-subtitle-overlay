@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ************************************
+    Generic Dialog Layout
+    ************************************
+    Root layout: LinearLayout
+    - Vertical orientation, padding 24dp
+    - Used for displaying messages with a title and content
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!--
+        ************************************
+        Dialog Title TextView
+        ************************************
+        Displays dialog title
+        - ID: dialogTitle
+        - Text centered, large text appearance
+        - Bold style, primary text color
+        - Padding bottom 12dp
+    -->
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:paddingBottom="12dp" />
+
+    <!--
+        ************************************
+        Dialog Message TextView
+        ************************************
+        Displays dialog content message
+        - ID: dialogMessage
+        - Medium text appearance
+        - Line spacing: 4dp
+    -->
+    <TextView
+        android:id="@+id/dialogMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:lineSpacingExtra="4dp" />
+</LinearLayout>

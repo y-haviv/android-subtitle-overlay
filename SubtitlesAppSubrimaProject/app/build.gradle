@@ -1,0 +1,140 @@
+// ----------------------------------------------------------------------------
+// Plugins Section
+// ----------------------------------------------------------------------------
+// Applies the Android application plugin via version catalogs (libs.versions.toml).
+// This plugin enables Android app-specific Gradle tasks and configurations.
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+// ----------------------------------------------------------------------------
+// Android Configuration Block
+// ----------------------------------------------------------------------------
+// Configures all Android-specific build options, including namespace, SDK versions,
+// default application configuration, native build settings, compilation options,
+// packaging options, and build types.
+android {
+    // Application namespace used for resource packaging and manifest merging
+    namespace 'com.example.subtitles'
+    // Compile SDK version defines the API level used for compilation
+    compileSdk 35
+
+    // ----------------------------------------------------------------------------
+    // Default Config
+    // ----------------------------------------------------------------------------
+    // Specifies application identifiers, SDK targets, versioning, instrumentation,
+    // and NDK configuration for native builds.
+    defaultConfig {
+        applicationId "com.example.subtitles"
+        minSdk 29
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        // Test runner for instrumentation tests
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // NDK configuration for cross-compiling native libraries
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a' // Target architectures
+            version "26.1.10909125" // NDK version
+        }
+        // Configure external native builds using CMake
+        externalNativeBuild {
+            cmake {
+                abiFilters 'armeabi-v7a', 'arm64-v8a' // Target ABIs
+                arguments "-DCMAKE_BUILD_TYPE=Release" // Ensures optimized release build
+            }
+        }
+
+    }
+    // ----------------------------------------------------------------------------
+    // External Native Build
+    // ----------------------------------------------------------------------------
+    // Specifies the CMake build script path and version for compiling native code.
+    externalNativeBuild {
+        cmake {
+            version "3.22.1"                                // CMake version used for native build
+            path "src/main/jni/CMakeLists.txt"             // Path to the native CMakeLists.txt
+        }
+    }
+    // ----------------------------------------------------------------------------
+    // Build Types
+    // ----------------------------------------------------------------------------
+    // Defines different build variants and their properties such as minification,
+    // ProGuard/R8 rules, and signing configuration.
+    buildTypes {
+        release {
+            minifyEnabled false                             // Disable code shrinking
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug             // Temporary debug signing for release builds
+        }
+        debug {
+            // Default debug configuration
+        }
+    }
+
+    // ----------------------------------------------------------------------------
+    // Compile Options
+    // ----------------------------------------------------------------------------
+    // Sets Java compatibility for source and target to Java 11 for all modules.
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    // ----------------------------------------------------------------------------
+    // Packaging Options
+    // ----------------------------------------------------------------------------
+    // Excludes unnecessary META-INF files from APK packaging to reduce conflicts
+    // and APK size.
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/AL2.0', 'META-INF/LGPL2.1', 'META-INF/LICENSE', 'META-INF/NOTICE']
+            excludes += ['META-INF/licenses/ASM']
+
+        }
+    }
+
+}
+
+// ----------------------------------------------------------------------------
+// Dependencies Section
+// ----------------------------------------------------------------------------
+// Declares all external libraries required by the project, including AndroidX,
+// MLKit, ONNX runtime, Vosk for speech recognition, Picovoice Falcon, and
+// other third-party utilities.
+dependencies {
+    // AndroidX LocalBroadcastManager for inter-component messaging
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
+
+    // Material design components and layout libraries
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+
+    // Vosk library for on-device speech recognition
+    implementation "com.alphacephei:vosk-android:0.3.47"
+
+    // Microsoft ONNX runtime for running AI models on Android
+    implementation "com.microsoft.onnxruntime:onnxruntime-android:1.22.0"
+    // Gson for JSON parsing
+    implementation 'com.google.code.gson:gson:2.10.1'
+    // AndroidX WorkManager for background tasks
+    implementation "androidx.work:work-runtime:2.8.0"
+    // ML Kit Translation for on-device language translation
+    implementation 'com.google.mlkit:translate:17.0.1'
+    // Picovoice Falcon SDK for voice activity detection or wake word
+    implementation 'ai.picovoice:falcon-android:1.0.2'
+    // JTransforms for fast Fourier transform operations
+    implementation 'com.github.wendykierp:JTransforms:3.1'
+
+    // AndroidX core libraries via version catalog
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    // Unit testing dependencies
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}

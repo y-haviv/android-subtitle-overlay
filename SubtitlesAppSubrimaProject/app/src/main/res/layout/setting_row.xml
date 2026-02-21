@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ************************************
+    Settings Row Layout
+    ************************************
+    Root layout: LinearLayout
+    - Orientation: horizontal
+    - Gravity: center (vertically aligns child views)
+    - Width: match_parent, Height: 56dp
+    - Padding: horizontal 8dp
+    - Purpose: used as a single row in settings screens for selecting options such as languages
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="8dp">
+    <!--
+            ************************************
+            Label TextView
+            ************************************
+            Displays the label for the row
+            - ID: tvLabel
+            - Width/Height: wrap_content
+            - Text: placeholder string resource (label_place_hold)
+            - Text color: white
+            - Text size: 16sp
+            - MarginEnd: 12dp to separate from the Spinner
+            - Purpose: describes what the Spinner selects
+        -->
+    <TextView
+    android:id="@+id/tvLabel"
+    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_place_hold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginEnd="12dp" />
+
+    <!--
+        ************************************
+        Language Spinner
+        ************************************
+        Dropdown spinner for selecting options (e.g., source/subtitle language)
+        - ID: spinnerLanguages
+        - Width/Height: wrap_content
+        - Spinner mode: dropdown
+        - Background tint: white
+        - Popup background: white
+        - MarginEnd: 12dp to separate from the help button
+        - Purpose: allows the user to select an option from a predefined list
+    -->
+    <Spinner
+    android:id="@+id/spinnerLanguages"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:spinnerMode="dropdown"
+    android:backgroundTint="@android:color/white"
+    android:popupBackground="@android:color/white"
+    android:layout_marginEnd="12dp" />
+
+    <!--
+        ************************************
+        Help Button
+        ************************************
+        Provides contextual help or information for the row
+        - ID: btnHelp
+        - Width/Height: 32dp
+        - Padding: 4dp
+        - Source drawable: ic_help
+        - Background: ripple effect (selectableItemBackgroundBorderless)
+        - Accessibility: contentDescription for screen readers
+        - Purpose: optional button to show additional info or guidance
+    -->
+    <ImageButton
+    android:id="@+id/btnHelp"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:padding="4dp"
+    android:src="@drawable/ic_help"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="@string/cd_help" />
+
+</LinearLayout>

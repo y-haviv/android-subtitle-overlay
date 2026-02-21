@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ********************************************************************
+    Settings Activity Layout
+    ********************************************************************
+    Root layout: ConstraintLayout
+    - Provides flexible positioning of child views.
+    - Sets the activity background and full-screen dimensions.
+    - ID: rootLayout
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_subrima"
+
+    >
+
+    <!--
+        ********************************************************************
+        Back Button (Top-Left)
+        ********************************************************************
+        ImageButton to navigate back from the settings screen.
+        - ID: btnBack
+        - Size: 40x40dp with 8dp padding
+        - Uses arrow_bac drawable
+        - Background supports ripple effect (selectableItemBackgroundBorderless)
+        - Accessibility: contentDescription for screen readers
+        - Positioned at the top-left corner
+    -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="8dp"
+        android:src="@drawable/arrow_bac"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/cd_back" />
+
+    <!--
+        ********************************************************************
+        Title TextView
+        ********************************************************************
+        Displays the title of the settings screen.
+        - ID: tvTitle
+        - Width: wrap_content, Height: wrap_content
+        - Text: settings_title string resource
+        - Text size: 20sp, bold, primary color
+        - Positioned below the back button and centered horizontally
+    -->
+    <TextView
+    android:id="@+id/tvTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/settings_title"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:textColor="@color/colorPrimary"
+    app:layout_constraintTop_toBottomOf="@id/btnBack"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="16dp"/>
+
+    <!--
+         ********************************************************************
+         ScrollView Container
+         ********************************************************************
+         Scrollable container holding all settings rows.
+         - ID: scrollView
+         - Fills available space between title and bottom of parent
+         - Allows vertical scrolling for overflow content
+         - Margins of 16dp on all sides
+     -->
+    <ScrollView
+    android:id="@+id/scrollView"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintTop_toBottomOf="@id/tvTitle"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_margin="16dp">
+        <!--
+                    ********************************************************************
+                    Settings Container (LinearLayout)
+                    ********************************************************************
+                    Vertical LinearLayout inside ScrollView to hold individual settings rows.
+                    - ID: llSettingsContainer
+                    - Orientation: vertical
+                    - Divider drawable used between items
+                    - showDividers set to 'middle' to display dividers between rows
+                -->
+    <LinearLayout
+        android:id="@+id/llSettingsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:divider="@drawable/line_divider"
+        android:showDividers="middle">
+
+        <!--
+                    ********************************************************************
+                    Source Language Row
+                    ********************************************************************
+                    Includes a reusable layout 'setting_row' for selecting source language.
+                    - ID: sourceLangRow
+                -->
+    <include
+        android:id="@+id/sourceLangRow"
+        layout="@layout/setting_row" />
+
+        <!--
+                   ********************************************************************
+                    Subtitle Language Row
+                    ********************************************************************
+                    Includes a reusable layout 'setting_row' for selecting subtitle language.
+                    - ID: subtitleLangRow
+                -->
+    <include
+        android:id="@+id/subtitleLangRow"
+        layout="@layout/setting_row" />
+
+        <!--
+                    ********************************************************************
+                    Smart Correction Toggle Row
+                    ********************************************************************
+                    Includes a reusable layout 'setting_row_toggle' for enabling/disabling
+                    smart correction mode.
+                    - ID: smartCorrectionRow
+                -->
+    <include
+        android:id="@+id/smartCorrectionRow"
+        layout="@layout/setting_row_toggle" />
+</LinearLayout>
+</ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>

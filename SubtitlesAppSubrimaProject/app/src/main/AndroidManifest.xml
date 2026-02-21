@@ -1,0 +1,138 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        *******************************************************************
+        Runtime Permissions
+        *******************************************************************
+        Permissions required for the app to function correctly on devices,
+        including audio recording, foreground service execution, media
+        projection, media playback, internet access, and overlay functionality.
+    -->
+
+    <!-- Enables the app to run foreground services -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Allows the app to perform media projection in a foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION"/>
+
+    <!-- Grants access to device microphone for live audio capture -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Allows media playback to run in foreground services -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+    <!-- Enables network access for fetching subtitles or remote communication -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+        *******************************************************************
+        Legacy Storage Permissions (API < 29)
+        *******************************************************************
+        Required for reading and writing files on external storage for devices
+        running Android 9 (Pie) or below. The maxSdkVersion ensures compatibility
+        with newer scoped storage restrictions.
+    -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!--
+        *******************************************************************
+        Overlay Permission
+        *******************************************************************
+        SYSTEM_ALERT_WINDOW allows the app to draw overlays over other apps.
+        This permission cannot be requested at runtime; the user must enable it
+        manually in system settings. Lint warnings are suppressed with tools:ignore.
+    -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" tools:ignore="ProtectedPermissions"/>
+
+    <!--
+        *******************************************************************
+        Application Declaration
+        *******************************************************************
+        Configures app-level attributes such as backup, icons, theme, and RTL support.
+        Also defines all activities and services used by the app.
+    -->
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Subtitles"
+        tools:targetApi="31">
+
+        <!--
+            *******************************************************************
+            Main Activity
+            *******************************************************************
+            Entry point of the application.
+            - Exported to allow external intents.
+            - Launchable from the device app drawer via MAIN and LAUNCHER intent filters.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            *******************************************************************
+            Settings Activity
+            *******************************************************************
+            Handles user preferences and application settings.
+            - Internal activity, no launcher intent filter.
+        -->
+        <activity android:name=".view.screens.SettingsActivity" />
+
+        <!--
+            *******************************************************************
+            Audio Capture Service
+            *******************************************************************
+            Foreground service responsible for capturing live audio from the device
+            microphone. Not exported to prevent external access.
+            - Foreground service type: mediaProjection and mediaPlayback.
+        -->
+        <service
+            android:name=".model.audioCapture.AudioCaptureService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection|mediaPlayback" />
+
+        <!--
+            *******************************************************************
+            Subtitle Overlay Service
+            *******************************************************************
+            Renders subtitles as a floating overlay on top of other applications.
+            - Handles configuration changes: orientation and screenSize.
+            - Runs as a foreground service for reliability.
+            - Not exported for internal use only.
+        -->
+        <service
+            android:name=".view.overlay.SubtitleOverlayService"
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:foregroundServiceType="mediaProjection|mediaPlayback" />
+
+        <!--
+            *******************************************************************
+            Floating Toggle Button Service
+            *******************************************************************
+            Provides a floating toggle button overlay to enable/disable subtitles in
+            real time. Supports orientation and screen size changes.
+            - Runs as a foreground service.
+            - Not exported to restrict access to internal app usage.
+        -->
+        <service
+            android:name=".view.overlay.FloatingToggleButtonService"
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:foregroundServiceType="mediaProjection|mediaPlayback" />
+
+    </application>
+
+</manifest>

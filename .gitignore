@@ -1,0 +1,74 @@
+# Gradle files
+.gradle/
+build/
+*.apk
+*.ap_
+
+# Local configuration file (SDK & NDK)
+local.properties
+
+# IDE-specific files and settings
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+*.vscode/
+
+# JVM crash logs
+hs_err*.log
+replay_pid*.log
+
+# Android Studio cache directory
+.cxx/
+
+# Build outputs and intermediates
+app/build/
+gradle/wrapper/
+.gradle/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Generated files from Android Studio
+gen/
+out/
+captures/
+.navigation/
+.externalNativeBuild
+
+# Gradle wrapper (optional - include or exclude based on project practice)
+# gradle-wrapper.jar
+# gradle-wrapper.properties
+
+# Environment files (if added in future)
+.env
+.env.local
+local.gradle
+local.properties
+
+# IDE plugin/library cache
+.gradle/caches/
+.gradle/plugins/
+
+# Native build artifacts
+app/.cxx/
+
+# Logs
+*.log
+logs/
+# AI/ML Model files (large files - downloaded at runtime)
+app/src/main/assets/vosk_models/
+app/src/main/assets/whisper_models/
+app/src/main/assets/m2m100/
+*.mdl
+*.fst
+*.onnx
+*.bin

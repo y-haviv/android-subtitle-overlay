@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#2193B0</color>
+    <color name="colorAccent">#B35900</color>
+    <color name="my_switch_on">#8AEB11</color>
+    <color name="my_switch_off">#CA3535</color>
+</resources>
+

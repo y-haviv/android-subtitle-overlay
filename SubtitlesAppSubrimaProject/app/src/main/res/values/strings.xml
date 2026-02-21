@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">subrima</string>
+    <string name="settings_title">Settings</string>
+    <string name="title">Title</string>
+    <string name="power">Power</string>
+    <string name="language">Language:</string>
+    <string name="subtitle">Sample subtitles</string>
+    <string name="subtitle_lang">English</string>
+
+    <string name="label_place_hold">label:</string>
+    <string name="source_language">Source language:</string>
+    <string name="subtitle_language">Subtitle language:</string>
+    <string name="smart_correction">Smart correction mode:</string>
+    <string name="cd_back">Go back</string>
+    <string name="cd_help">Show explanation</string>
+    <string name="help_source">Choose the original speech language, or leave on Automatic for detection.</string>
+    <string name="help_subtitle">Choose the language for on-screen subtitles.</string>
+    <string name="help_correction">Enable to auto-correct common transcription errors.</string>
+
+    <string name="help_source_title">Source Language Help</string>
+    <string name="help_subtitle_title">Subtitle Language Help</string>
+    <string name="help_correction_title">Correction Mode Help</string>
+
+    <string name="help_default_text">No help text available for this language.</string>
+
+</resources>
