@@ -285,14 +285,16 @@ Windows:
 
 ## Screenshots and Demo
 
-Main screen:
+<p align="center">
+  <img src="docs/Example_image_01.png" width="45%" alt="Main Screen" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/Example_image_02.png" width="45%" alt="Settings Screen" />
+</p>
 
-![Main Screen](docs/Example_image_01.png)
-
-Settings screen:
-
-![Settings Screen](docs/Example_image_02.png)
-
+<p align="center">
+  <b>Sample video:</b><br><br>
+  <video src="https://github.com/user-attachments/assets/f82c6803-7e0f-4e07-bfa4-0cfe2bced5a2" width="80%" controls></video>
+</p>
 
 ## Troubleshooting
 
