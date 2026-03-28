@@ -10,8 +10,108 @@ project(whisper.cpp)
 
 # Set C++ standard to C++17 for all targets
 set(CMAKE_CXX_STANDARD 17)
-# Define the path to the whisper.cpp library
-set(WHISPER_LIB_DIR ${CMAKE_SOURCE_DIR}/../../../../../whisper_cpp)
+
+# Find Git once so native dependency checkout can happen during configure.
+find_package(Git QUIET)
+
+# -----------------------------------------------------------------------------
+# Whisper.cpp Source Resolution
+# -----------------------------------------------------------------------------
+# The native build supports two source locations for whisper.cpp:
+#
+# 1. Preferred local override:
+#    ../../../../../whisper_cpp
+#    This keeps compatibility with an existing manual checkout.
+#
+# 2. Automatic fallback:
+#    If the local checkout does not exist, CMake performs a shallow clone of a
+#    pinned upstream whisper.cpp tag into a short cache path under Local AppData.
+#
+# This removes the need for developers to clone whisper.cpp by hand before
+# opening or building the Android project.
+set(WHISPER_LOCAL_DIR "${CMAKE_SOURCE_DIR}/../../../../../whisper_cpp")
+set(WHISPER_FETCH_TAG "v1.8.4")
+set(WHISPER_FETCH_REPOSITORY "https://github.com/ggerganov/whisper.cpp.git")
+
+if (DEFINED ENV{LOCALAPPDATA} AND NOT "$ENV{LOCALAPPDATA}" STREQUAL "")
+    file(TO_CMAKE_PATH "$ENV{LOCALAPPDATA}" WHISPER_CACHE_BASE)
+else()
+    set(WHISPER_CACHE_BASE "${CMAKE_SOURCE_DIR}/.native_deps")
+endif()
+
+set(WHISPER_CACHE_ROOT "${WHISPER_CACHE_BASE}/SubrimaNativeDeps")
+set(WHISPER_AUTO_DIR "${WHISPER_CACHE_ROOT}/whispercpp")
+
+# -----------------------------------------------------------------------------
+# Function: ensure_whisper_checkout
+# -----------------------------------------------------------------------------
+# Guarantees that a usable whisper.cpp checkout exists in a short cache path.
+#
+# Why a custom checkout flow instead of FetchContent:
+# - Android Studio configures native builds inside deep .cxx directories.
+# - FetchContent adds additional nested _deps paths.
+# - On Windows this can exceed the 260-character legacy path limit.
+#
+# By cloning into Local AppData, the dependency path stays short and stable
+# across ABI builds, avoiding the failing Ninja stamp-file path.
+function(ensure_whisper_checkout repository tag destination)
+    if (NOT GIT_FOUND)
+        message(FATAL_ERROR
+                "Git was not found. Install Git or place a local whisper.cpp checkout at ${WHISPER_LOCAL_DIR}")
+    endif()
+
+    get_filename_component(destination_parent "${destination}" DIRECTORY)
+    file(MAKE_DIRECTORY "${destination_parent}")
+
+    # Serialize clone/update work so parallel ABI configuration does not race.
+    file(LOCK "${destination_parent}/whispercpp.lock" GUARD FUNCTION TIMEOUT 300)
+
+    if (EXISTS "${destination}/src/whisper.cpp" AND EXISTS "${destination}/CMakeLists.txt")
+        message(STATUS "Using cached whisper.cpp checkout: ${destination}")
+        return()
+    endif()
+
+    if (EXISTS "${destination}")
+        execute_process(
+                COMMAND "${CMAKE_COMMAND}" -E rm -rf "${destination}"
+                RESULT_VARIABLE remove_result
+        )
+        if (NOT remove_result EQUAL 0)
+            message(FATAL_ERROR "Failed to remove incomplete whisper.cpp cache at: ${destination}")
+        endif()
+    endif()
+
+    message(STATUS "Cloning whisper.cpp ${tag} into cache: ${destination}")
+
+    execute_process(
+            COMMAND "${GIT_EXECUTABLE}" -c core.longpaths=true clone --depth 1 --branch "${tag}" "${repository}" "${destination}"
+            RESULT_VARIABLE clone_result
+            OUTPUT_VARIABLE clone_output
+            ERROR_VARIABLE clone_error
+    )
+
+    if (NOT clone_result EQUAL 0)
+        message(FATAL_ERROR
+                "Failed to clone whisper.cpp ${tag}.\n"
+                "Repository: ${repository}\n"
+                "Destination: ${destination}\n"
+                "Git error: ${clone_error}")
+    endif()
+endfunction()
+
+if (EXISTS "${WHISPER_LOCAL_DIR}/CMakeLists.txt")
+    set(WHISPER_LIB_DIR "${WHISPER_LOCAL_DIR}")
+    message(STATUS "Using local whisper.cpp checkout: ${WHISPER_LIB_DIR}")
+else()
+    message(STATUS "Local whisper.cpp checkout not found. Downloading ${WHISPER_FETCH_TAG} automatically.")
+    ensure_whisper_checkout("${WHISPER_FETCH_REPOSITORY}" "${WHISPER_FETCH_TAG}" "${WHISPER_AUTO_DIR}")
+    set(WHISPER_LIB_DIR "${WHISPER_AUTO_DIR}")
+    message(STATUS "Using cached whisper.cpp sources: ${WHISPER_LIB_DIR}")
+endif()
+
+if (NOT EXISTS "${WHISPER_LIB_DIR}/src/whisper.cpp")
+    message(FATAL_ERROR "whisper.cpp sources were not found at: ${WHISPER_LIB_DIR}")
+endif()
 
 # -----------------------------------------------------------------------------
 # Whisper.cpp Version Detection
@@ -41,8 +141,14 @@ set(SOURCE_FILES
 # Locate Android log library for linking
 find_library(LOG_LIB log)
 
-# Include FetchContent module to handle external dependencies
-include(FetchContent)
+# -----------------------------------------------------------------------------
+# GGML Dependency
+# -----------------------------------------------------------------------------
+# ggml is consumed directly from the resolved whisper.cpp source tree.
+# This avoids FetchContent subbuild path expansion on Windows.
+if (NOT TARGET ggml)
+    add_subdirectory("${WHISPER_LIB_DIR}/ggml" "${CMAKE_BINARY_DIR}/ggml-build")
+endif()
 
 # -----------------------------------------------------------------------------
 # Function: build_library
@@ -61,10 +167,6 @@ function(build_library target_name)
         SHARED
         ${SOURCE_FILES}
     )
-
-    # Fetch ggml dependency from whisper.cpp repository
-    FetchContent_Declare(ggml SOURCE_DIR ${WHISPER_LIB_DIR}/ggml)
-    FetchContent_MakeAvailable(ggml)
 
     # Link libraries required for Android and whisper
     target_link_libraries(${target_name} ${LOG_LIB} android ggml)

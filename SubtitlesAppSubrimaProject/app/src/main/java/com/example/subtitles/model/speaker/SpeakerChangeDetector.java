@@ -5,12 +5,11 @@ import android.util.Log;
 
 
 import com.example.subtitles.model.audio.StreamAudioCapturer;
+import com.example.subtitles.util.AssetUtils;
 import com.example.subtitles.view_model.transcriptManager;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -70,8 +69,8 @@ public class SpeakerChangeDetector {
     private static final float DECAY = 0.9f;
     /** Multiplier for standard deviation test. */
     private static final float STDEV_MULT = 2.0f;
-    /** ONNX model filename inside assets. */
-    private static final String MODEL_PATH = "model.onnx";
+    /** ONNX model filename in app internal storage. */
+    public static final String MODEL_PATH = AssetUtils.PYANNOTE_MODEL_FILE;
     private static SpeakerChangeDetector instance;
     /** Adaptive RMS silence threshold. */
     private static double RMS_THRESHOLD = SmoothRmsAdjuster.RMS_THRESHOLD_DEFAULT;
@@ -106,7 +105,7 @@ public class SpeakerChangeDetector {
 
         try {
             env = OrtEnvironment.getEnvironment();
-            File modelFile = copyAssetToFile(ctx, MODEL_PATH);
+            File modelFile = AssetUtils.getRequiredRuntimeModelFile(ctx, MODEL_PATH);
             OrtSession.SessionOptions opts = new OrtSession.SessionOptions();
             opts.addConfigEntry("session.use_xnnpack", "1");
             session = env.createSession(modelFile.getAbsolutePath(), opts);
@@ -345,19 +344,5 @@ public class SpeakerChangeDetector {
         } finally {
             instance = null;
         }
-    }
-    /**
-     * Copies asset model to cache directory.
-     */
-    private File copyAssetToFile(Context ctx, String name) throws IOException {
-        File out = new File(ctx.getCacheDir(), name);
-        if (out.exists()) return out;
-        try (InputStream is = ctx.getAssets().open(name);
-             FileOutputStream os = new FileOutputStream(out)) {
-            byte[] buf = new byte[4096];
-            int r;
-            while ((r = is.read(buf)) > 0) os.write(buf, 0, r);
-        }
-        return out;
     }
 }

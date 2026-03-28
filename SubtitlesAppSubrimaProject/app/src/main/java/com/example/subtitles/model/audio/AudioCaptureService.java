@@ -43,6 +43,7 @@ public class AudioCaptureService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d("AudioCaptureService", "onCreate()");
         // Create the notification channel (required for Android O and above)
         createNotificationChannel();
         // Initialize the singleton audio capturer with the sample rate from transcriptManager
@@ -74,9 +75,16 @@ public class AudioCaptureService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("AudioCaptureService", "onStartCommand(), startId=" + startId + ", flags=" + flags + ", intent=" + intent);
+        if (intent == null) {
+            Log.e("AudioCaptureService", "Received null intent in onStartCommand");
+            return START_NOT_STICKY;
+        }
+
         // Retrieve projection data and result code from the intent
         int resultCode = intent.getIntExtra("PROJECTION_CODE", Activity.RESULT_CANCELED);
         Intent projectionData = intent.getParcelableExtra("PROJECTION_DATA");
+        Log.d("AudioCaptureService", "Projection extras: resultCode=" + resultCode + ", projectionData=" + projectionData);
         // Validate the projection data
         if (resultCode == Activity.RESULT_OK && projectionData != null) {
             MediaProjectionManager projectionManager =
@@ -90,6 +98,7 @@ public class AudioCaptureService extends Service {
                 }
                 // Notify the capturer that projection has been granted
                 capturer.onProjectionGranted(resultCode, projectionData);
+                Log.d("AudioCaptureService", "Projection granted to capturer, sending ACTION_SERVICE_READY");
                 // Broadcast that the service is ready
                 LocalBroadcastManager.getInstance(this)
                         .sendBroadcast(new Intent("com.example.subtitles.ACTION_SERVICE_READY"));
@@ -97,6 +106,8 @@ public class AudioCaptureService extends Service {
             } catch (SecurityException e) {
                 // Catch any security exceptions in case permissions are missing
                 Log.e("AudioCaptureService", "SecurityException while starting projection", e);
+            } catch (RuntimeException e) {
+                Log.e("AudioCaptureService", "RuntimeException while initializing projection", e);
             }
         } else {
             Log.e("AudioCaptureService", "Invalid projection data or resultCode");
@@ -131,6 +142,7 @@ public class AudioCaptureService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d("AudioCaptureService", "onDestroy()");
         // Stop the active media projection if it exists
         if (projection != null) {
             projection.stop();

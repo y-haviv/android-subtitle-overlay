@@ -1,6 +1,8 @@
 # Gradle files
 .gradle/
 build/
+/build/
+*/build/
 *.apk
 *.ap_
 
@@ -21,6 +23,7 @@ replay_pid*.log
 
 # Android Studio cache directory
 .cxx/
+.native_deps/
 
 # Build outputs and intermediates
 app/build/

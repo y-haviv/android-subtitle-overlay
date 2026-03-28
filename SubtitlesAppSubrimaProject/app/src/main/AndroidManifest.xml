@@ -99,7 +99,7 @@
             - Foreground service type: mediaProjection and mediaPlayback.
         -->
         <service
-            android:name=".model.audioCapture.AudioCaptureService"
+            android:name=".model.audio.AudioCaptureService"
             android:exported="false"
             android:foregroundServiceType="mediaProjection|mediaPlayback" />
 

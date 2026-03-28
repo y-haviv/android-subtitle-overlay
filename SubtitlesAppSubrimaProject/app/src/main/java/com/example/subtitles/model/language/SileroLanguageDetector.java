@@ -52,9 +52,13 @@ import ai.onnxruntime.OrtSession.Result;
  */
 public class SileroLanguageDetector implements AutoCloseable {
     private static final String TAG = "SileroLangDetector";
-    /** ONNX model and language dictionary asset names */
-    private static final String MODEL_NAME = "lang_classifier_95.onnx";
-    private static final String DICT_NAME = "lang_dict_95.json";
+    /**
+     * Language dictionary asset name.
+     *
+     * Note: The ONNX model itself is now loaded from app internal storage
+     * (context.getFilesDir()) after runtime download.
+     */
+    public static final String DICT_NAME = "lang_dict_95.json";
     /** ONNX Runtime environment and session */
     private final OrtEnvironment env;
     private final OrtSession session;
@@ -104,7 +108,7 @@ public class SileroLanguageDetector implements AutoCloseable {
         // Initialize ONNX runtime
         env = OrtEnvironment.getEnvironment();
         OrtSession.SessionOptions opts = new OrtSession.SessionOptions();
-        File modelFile = AssetUtils.copyFileIfNotExists(ctx, MODEL_NAME);
+        File modelFile = AssetUtils.getRequiredRuntimeModelFile(ctx, AssetUtils.SILERO_MODEL_FILE);
         session = env.createSession(modelFile.getAbsolutePath(), opts);
         // Load language dictionary
         JSONObject dict = AssetUtils.loadJsonObject(ctx, DICT_NAME);

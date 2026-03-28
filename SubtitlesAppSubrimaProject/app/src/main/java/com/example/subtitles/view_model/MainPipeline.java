@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,13 +114,11 @@ public class MainPipeline {
         }
         translator = tempTransltor;
         // Load Google language map from assets
-        try {
-            InputStream is = context.getAssets().open("google_dict.json");
+        try (InputStream is = context.getAssets().open("google_dict.json")) {
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
-            is.close();
-            String json = new String(buffer, "UTF-8");
+            String json = new String(buffer, StandardCharsets.UTF_8);
             googleLangMap = new JSONObject(json);
             Log.d(TAG, "Google language map loaded with " + googleLangMap.length() + " entries");
         } catch (IOException | JSONException e) {

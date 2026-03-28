@@ -13,6 +13,7 @@ import android.os.Build;
 
 import com.example.subtitles.model.transcription.correction.transcriptSegment;
 import com.example.subtitles.model.transcription.correction.whisper.lib.WhisperContext;
+import com.example.subtitles.util.AssetUtils;
 import com.example.subtitles.view_model.MainPipeline;
 import com.example.subtitles.view_model.transcriptManager;
 
@@ -53,8 +54,8 @@ public class WhisperTranscriber {
     /** Logging tag */
     private static final String TAG = "WhisperTranscriber";
 
-    /** Asset path to Whisper model */
-    private static final String MODEL_PATH = "whisper_models/ggml-tiny-q5_1.bin";
+    /** Whisper model filename in app internal storage */
+    public static final String MODEL_PATH = AssetUtils.WHISPER_TINY_MODEL_FILE;
 
     /** Singleton instance */
     private static WhisperTranscriber instance;

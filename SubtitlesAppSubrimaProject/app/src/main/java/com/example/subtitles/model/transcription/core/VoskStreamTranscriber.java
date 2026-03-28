@@ -189,12 +189,22 @@ public class VoskStreamTranscriber {
 
     /**
      * Switch language synchronously.
-     * Stops transcription, loads model, restarts engine.
+     * Loads the new model, then swaps it in atomically.
+     *
+     * This method is intentionally NOT synchronized at the method level.
+     * Holding the instance lock for the entire network download (~30 MB, up to
+     * several minutes on a slow connection) would block the processLoop worker
+     * thread from delivering any subtitles while we wait.  Instead we keep the
+     * lock only for the fast atomic swap at the end (Phase 3).
+     *
+     * Failure contract: if any phase before stop() fails we return immediately
+     * without touching the running pipeline — the old language keeps working.
      */
-    private synchronized void switchLanguage(String langCode) {
+    private void switchLanguage(String langCode) {
+        // ── Phase 1: retrieve / download the model from disk ──────────────────
+        // The old-language worker continues transcribing while we download.
         File modelDir;
         try {
-            //VoskWindowTranscriber.getInstance(context).stop();
             LanguageModelManager mgr = LanguageModelManager.getInstance(context);
             modelDir = mgr.loadModel(langCode);
             if (modelDir == null || !modelDir.isDirectory()) {
@@ -207,28 +217,44 @@ public class VoskStreamTranscriber {
             return;
         }
 
-        try {
+        // Quick same-model guard (thread-safe read of modelPath under lock)
+        synchronized (this) {
             if (modelPath.equals(modelDir.getAbsolutePath())) {
-                Log.e(TAG, "same Model " + langCode);
+                Log.i(TAG, "Already using model for lang=" + langCode + ", nothing to do");
                 return;
             }
-            // stop existing transcription
-            stop();
+        }
+
+        // ── Phase 2: initialise the Vosk Model object ─────────────────────────
+        // Also slow (reads model weights from disk). No lock held — old
+        // recogniser keeps running so the user sees no interruption yet.
+        // If this fails we return WITHOUT touching the running pipeline.
+        Model newModel;
+        try {
+            newModel = new Model(modelDir.getAbsolutePath());
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to create Vosk Model for " + langCode
+                    + " at " + modelDir.getAbsolutePath(), e);
+            notifyError(e);
+            return;  // old transcription is still running — do not kill it
+        }
+
+        // ── Phase 3: atomic swap ───────────────────────────────────────────────
+        // stop() is synchronized and waits for the worker's current
+        // handleTexts() call to finish before shutting it down cleanly.
+        // After stop() returns the worker is gone and we own the pipeline.
+        stop();
+        synchronized (this) {
             notifyListener("", "new language detected: " + langCode);
             lastNotified = "";
             lastNotifiedUnModify = "";
             currentLang = langCode;
             modelPath = modelDir.getAbsolutePath();
-            model = new Model(modelPath);
+            model = newModel;
             resetTranscriber(true);
             Log.i(TAG, "Loaded model for language=" + langCode);
-            // start transcription automatically
             start();
-            //VoskWindowTranscriber.getInstance(context).switchLanguageAsync(langCode, modelPath);
             notifyLangChange(currentLang, modelPath);
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to initialize Vosk for " + langCode, e);
-            notifyError(e);
         }
     }
     /**

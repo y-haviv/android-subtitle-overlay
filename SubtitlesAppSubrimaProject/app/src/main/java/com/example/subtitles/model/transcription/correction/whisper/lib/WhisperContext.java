@@ -1,17 +1,15 @@
 package com.example.subtitles.model.transcription.correction.whisper.lib;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import androidx.annotation.RequiresApi;
 import android.os.Build;
 import android.util.Log;
 
 import com.example.subtitles.model.transcription.correction.transcriptSegment;
+import com.example.subtitles.util.AssetUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -28,7 +26,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Singleton wrapper around native Whisper context.
  *
  * Responsibilities:
- *  - Load Whisper model from assets
+ *  - Load Whisper model from app internal storage (runtime-downloaded file)
  *  - Manage native context lifetime
  *  - Execute transcription on background thread
  *  - Convert native segments into transcriptSegment objects
@@ -64,29 +62,29 @@ public class WhisperContext {
     // ================================================================
 
     /**
-     * Initialize singleton using model stored in assets.
+     * Initialize singleton using model file from app internal storage.
      *
      * @param appContext application context
-     * @param assetPath  model path under assets/
+     * @param modelFileName model file name inside context.getFilesDir()
      */
-    public static void init(Context appContext, String assetPath) throws IOException {
+    public static void init(Context appContext, String modelFileName) throws IOException {
         if (!initialized.compareAndSet(false, true)) {
             Log.i(TAG, "WhisperContext already initialized.");
             return;
         }
         if (instance != null) return;
 
-        // Load directly from assets using native JNI method
-        long ptr = WhisperLib.initContextFromAsset(appContext.getAssets(), assetPath);
+        File modelFile = AssetUtils.getRequiredRuntimeModelFile(appContext, modelFileName);
+        long ptr = WhisperLib.initContext(modelFile.getAbsolutePath());
         if (ptr == 0L)
-            throw new RuntimeException(" Failed to init Whisper from asset: " + assetPath);
+            throw new RuntimeException(" Failed to init Whisper from file: " + modelFile.getAbsolutePath());
 
         instance = new WhisperContext(ptr);
         String sysInfo = WhisperLib.getSystemInfo();
         Log.i("WHISPER", "System Info: " + sysInfo);
 
 
-        Log.i(TAG, " WhisperContext initialized from asset: " + assetPath);
+        Log.i(TAG, " WhisperContext initialized from file: " + modelFile.getAbsolutePath());
     }
 
 
@@ -95,11 +93,11 @@ public class WhisperContext {
      * Returns singleton instance.
      * init() must be called first.
      */
-    public static synchronized WhisperContext getInstance(Context ctx, String assetPath) {
+    public static synchronized WhisperContext getInstance(Context ctx, String modelFileName) {
         if (instance == null) {
             Log.i(TAG,"WhisperContext not initialized. Call init() first.");
             try {
-                WhisperContext.init(ctx, assetPath);
+                WhisperContext.init(ctx, modelFileName);
                 return instance;
             } catch (Exception e) {
                 throw new RuntimeException("WhisperContex error initionlized whisper model: " + e.toString());

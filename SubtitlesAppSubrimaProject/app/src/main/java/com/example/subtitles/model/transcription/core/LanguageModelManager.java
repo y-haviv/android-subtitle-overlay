@@ -78,18 +78,11 @@ public class LanguageModelManager {
         if (!baseDir.exists() && !baseDir.mkdirs()) {
             Log.e(TAG, "Unable to create models directory: " + baseDir.getAbsolutePath());
         }
-        // ─── Seed the built-in English model ───
+
         try {
+            File enDir = AssetUtils.ensureDefaultVoskModel(context);
 
-            File enDir = new File(baseDir, "en");
-            // Copy bundled English model from assets if missing
-            if (!enDir.exists() || enDir.listFiles().length == 0) {
-                AssetUtils.copyAssetFolder(context, MODEL_DIR_NAME + "/en", enDir);
-                Log.i(TAG, "Default English model unzipped to: " + enDir.getAbsolutePath());
-            }
-
-            // Register English as cached fallback
-            if (enDir.exists() && enDir.isDirectory() && enDir.listFiles().length > 0) {
+            if (isValidModelDir(enDir)) {
                 cache.put("en", enDir);
                 lastSuccessful = enDir;
                 Log.i(TAG, "Default English model loaded into cache");
@@ -207,8 +200,9 @@ public class LanguageModelManager {
 
             File resultDir = null;
             try {
-                // Wait up to 40 seconds
-                resultDir = future.get(40, TimeUnit.SECONDS);
+                // Allow up to 5 minutes — a ~30 MB model ZIP over a slow mobile
+                // connection can easily take longer than the old 40-second cap.
+                resultDir = future.get(300, TimeUnit.SECONDS);
                 Log.i(TAG, "[loadModel] future.get() → resultDir.exists="
                         + (resultDir != null && resultDir.exists())
                         + ", isDir=" + (resultDir != null && resultDir.isDirectory())
@@ -278,7 +272,7 @@ public class LanguageModelManager {
         /** Base directory for extracted models */
         private final File baseDir;
 
-        private final String DIR_NAME = "models";
+        private final String DIR_NAME = MODEL_DIR_NAME;
         /** Folder name of last successful model */
         private String lastSuccessfulName = "";
 
@@ -361,10 +355,22 @@ public class LanguageModelManager {
             String folderName = info.transcript_folder;
             File outDir = new File(baseDir, folderName);
 
-            // Already exists
-            if (outDir.exists() && outDir.isDirectory() && outDir.listFiles().length > 0) {
-                Log.i(TAG, "Model dir exists: " + outDir.getAbsolutePath());
-                return outDir;
+            // Re-use an already-extracted model only when the required Vosk
+            // layout (am/ + conf/) is confirmed intact.  A partial/corrupt dir
+            // left by a previous failed download would pass a simple size check
+            // but fail here, triggering a clean re-download instead of a crash.
+            if (outDir.exists() && outDir.isDirectory()) {
+                File effectiveDir = outDir;
+                File[] children = outDir.listFiles();
+                if (children != null && children.length == 1 && children[0].isDirectory()) {
+                    effectiveDir = children[0];
+                }
+                if (isVoskModelComplete(effectiveDir)) {
+                    Log.i(TAG, "Valid model already present at " + effectiveDir.getAbsolutePath());
+                    return effectiveDir;
+                }
+                Log.w(TAG, "Existing dir for " + langCode + " is incomplete — deleting and re-downloading");
+                deleteRecursively(outDir);
             }
 
             outDir.mkdirs();
@@ -375,6 +381,9 @@ public class LanguageModelManager {
                 throw new IOException("No model URL defined for " + langCode);
             }
 
+            // Keep a stable reference to the outer dir so we can clean it up
+            // completely if the download or unzip fails.
+            final File outerDir = outDir;
             File zipFile = new File(baseDir, "model.zip");
             try {
                 // Download or copy ZIP
@@ -404,6 +413,13 @@ public class LanguageModelManager {
                     Log.i(TAG, "loadModel: flattening single-child dir " + single.getName());
                     outDir = single;
                 }
+            } catch (IOException e) {
+                // Remove any partially-extracted files so the next attempt
+                // starts from a clean slate rather than hitting the fast-path
+                // early return above with a corrupt directory.
+                Log.w(TAG, "Download/unzip failed for " + langCode + " — cleaning up partial outDir", e);
+                deleteRecursively(outerDir);
+                throw e;
             } finally {
                 if (zipFile.exists()) zipFile.delete();
             }
@@ -427,6 +443,18 @@ public class LanguageModelManager {
             lastSuccessfulName = map.get(langCode).transcript_folder;
             return outDir;
         }
+        /**
+         * Returns true when {@code dir} contains the standard Vosk model layout
+         * (an {@code am/} directory and a {@code conf/} directory at its root).
+         * Used to distinguish a fully-extracted model from a partially-downloaded
+         * or empty directory.
+         */
+        private boolean isVoskModelComplete(File dir) {
+            return dir != null && dir.isDirectory()
+                    && new File(dir, "am").isDirectory()
+                    && new File(dir, "conf").isDirectory();
+        }
+
         /**
          * Checks if requested language uses same model folder
          * as the currently active one.
@@ -496,7 +524,7 @@ public class LanguageModelManager {
             URL url = new URL(urlStr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(15000);
-            conn.setReadTimeout(15000);
+            conn.setReadTimeout(60000);  // 60 s between individual reads; safe for slow mobile networks
             conn.connect();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException("HTTP error code: " + conn.getResponseCode());

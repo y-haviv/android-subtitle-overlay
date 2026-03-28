@@ -12,7 +12,7 @@ The project is feature-rich and still evolving. The main runtime path is stable 
 - [Repository Structure](#repository-structure)
 - [Core Components](#core-components)
 - [Requirements](#requirements)
-- [Model and Asset Preparation](#model-and-asset-preparation)
+- [Model and Runtime Downloads](#model-and-runtime-downloads)
 - [Setup Profiles](#setup-profiles)
 - [Build and Run](#build-and-run)
 - [Permissions](#permissions)
@@ -156,9 +156,16 @@ Practical hardware guidance:
 - At least 2 GB RAM (4 GB+ recommended for smoother behavior)
 - Free storage for model files (size depends on Vosk/Whisper model choices)
 
-## Model and Asset Preparation
+## Model and Runtime Downloads
 
-This section is critical to avoid startup/build issues.
+The app now supports first-run automatic download for startup-required models.
+
+What this means in practice:
+
+- No manual model pre-copy is required for normal first launch on device.
+- On first run, the app downloads required startup models and stores them locally.
+- Source links are still listed below for transparency and verification.
+- Those links are third-party external hosts and are not controlled by this project.
 
 ### 1) Translation (Google ML Kit)
 
@@ -179,7 +186,11 @@ Note: `lang.json` contains many language codes, but only entries with valid `tra
 
 ### 3) Source language auto-detection model (Silero)
 
-Required file:
+Default behavior:
+
+- Downloaded automatically on first run if missing.
+
+Manual/reference file path (if you want to pre-provision it):
 
 - `app/src/main/assets/lang_classifier_95.onnx`
 
@@ -189,13 +200,19 @@ Reference source used by this project:
 
 ### 4) Speaker embedding model
 
-Required file for current speaker-change detection path:
+Default behavior:
+
+- Downloaded automatically on first run if missing.
+
+Manual/reference file path for current speaker-change detection path:
 
 - `app/src/main/assets/model.onnx`
 
 The app currently expects the filename `model.onnx` unless code is changed in `SpeakerChangeDetector`.
 
 Example model source family used by this project:
+
+- `https://huggingface.co/deepghs/pyannote-embedding-onnx`
 
 - `https://huggingface.co/nevil-ramani/pyannote_embedding_onnx/tree/main`
 
@@ -243,7 +260,7 @@ Build-system note: current `app/src/main/jni/CMakeLists.txt` always includes bot
 
 1. Install Android Studio with SDK 35, NDK `26.1.10909125`, and CMake `3.22.1`.
 2. Clone and open the project.
-3. Ensure model files listed above exist in `app/src/main/assets/`.
+3. For baseline usage, just run the app once with internet enabled so startup models can be downloaded automatically.
 4. If Whisper JNI is kept enabled, ensure sibling `../whisper_cpp` exists.
 5. Sync Gradle and run on an Android 10+ device.
 
@@ -303,6 +320,7 @@ Windows:
 | Gradle/CMake fails with missing `whisper_cpp` files | `../whisper_cpp` folder is missing | Clone/download `whisper.cpp` and place it as sibling folder named `whisper_cpp` |
 | Build fails in `sentencepiece` native step | Network/offline issues during ExternalProject fetch | Keep internet enabled for first native build, or remove sentencepiece JNI integration if not needed |
 | App starts but no subtitles appear | Overlay/capture permissions not fully granted | Re-grant `SYSTEM_ALERT_WINDOW` and screen capture permissions |
+| First run does not complete model setup | Network blocked/unstable or host unavailable | Verify internet access, retry app launch, and check external model source availability |
 | Auto language switch not working | Missing or invalid `lang_classifier_95.onnx` | Verify file path and filename in assets |
 | Speaker-change behavior weak or noisy | Missing/incompatible `model.onnx` | Replace with a valid embedding ONNX model and keep expected path/name |
 | Translation stuck at loading | ML Kit model still downloading or not ready | Keep internet on until first model download completes |
@@ -311,6 +329,7 @@ Windows:
 ## Security Notes
 
 - Vosk model URLs are configured in `app/src/main/assets/lang.json` and may point to external hosts (for example alphacephei/archive mirrors).
+- Startup-required model downloads also rely on external third-party hosts.
 - You should review those URLs if your environment has strict security requirements.
 - This project does not control third-party hosting availability or content integrity.
 
