@@ -77,7 +77,7 @@ public class WhisperTranscriber {
     private static final int CHUNK_SAMPLES    = SAMPLE_RATE * CHUNK_SEC;   // 160 000
 
 
-    private final int chunkSamples = CHUNK_SEC * SAMPLE_RATE;      // 10s worth of samples
+    private final int chunkSamples = CHUNK_SEC * SAMPLE_RATE;      // 30s worth of samples
     /** Number of samples in overlap window */
     private final int overlapSamples = OVERLAP_SEC * SAMPLE_RATE;  // 2s worth of samples
 

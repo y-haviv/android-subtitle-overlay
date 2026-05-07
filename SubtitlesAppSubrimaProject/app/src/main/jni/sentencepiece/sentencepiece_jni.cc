@@ -1,5 +1,5 @@
 // - com_example_subtitles_archive_translation_tokenization_SentencePieceJNI.cc
-// The cc from the GitHub project:
+// This .cc file is from the GitHub project:
 // https://github.com/levyfan/sentencepiece-jni
 // Changes only to relevant function names (to suit my application)
 #include "sentencepiece_processor.h"

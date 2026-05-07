@@ -255,7 +255,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
     jstring string = (*env)->NewStringUTF(env, text);
     return string;
 }
-// Returns the start time (in ms) of the segment at the given index
+// Returns the start time of the segment at the given index (Whisper 10 ms units)
 JNIEXPORT jlong JNICALL
 Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentT0(JNIEnv *env, jobject thiz,jlong context_ptr, jint index) {
     UNUSED(thiz);
@@ -263,7 +263,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
     const int64_t t0 = whisper_full_get_segment_t0(context, index);
     return (jlong)t0;
 }
-// Returns the end time (in ms) of the segment at the given index
+// Returns the end time of the segment at the given index (Whisper 10 ms units)
 JNIEXPORT jlong JNICALL
 Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentT1(JNIEnv *env, jobject thiz,jlong context_ptr, jint index) {
     UNUSED(thiz);

@@ -2,6 +2,9 @@
 package com.example.subtitles.archive.translation.tokenization;
 // SentencePieceJNI.java
 
+/**
+ * JNI bridge for native SentencePiece tokenization bindings.
+ */
 class SentencePieceJNI {
 
     static {
