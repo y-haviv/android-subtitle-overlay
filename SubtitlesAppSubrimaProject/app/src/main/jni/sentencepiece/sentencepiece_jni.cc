@@ -1,4 +1,4 @@
-// - com_example_subtitles_archive_translation_tokenization_SentencePieceJNI.cc
+// - com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI.cc
 // This .cc file is from the GitHub project:
 // https://github.com/levyfan/sentencepiece-jni
 // Changes only to relevant function names (to suit my application)
@@ -11,7 +11,7 @@ using absl::string_view;
 
 int throwStatus(JNIEnv *env, const Status &status) {
     if (!status.ok()) {
-        jclass cls = env->FindClass("com/example/subtitles/archive/translation/tokenization/SentencePieceException");
+        jclass cls = env->FindClass("com/subrima/subtitles/archive/translation/tokenization/SentencePieceException");
         env->ThrowNew(cls, status.ToString().c_str());
     }
     return (int) status.code();
@@ -86,33 +86,33 @@ std::vector<int> jintArrayToVectorInt(JNIEnv *env, jintArray array) {
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppCtor
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppCtor
+JNIEXPORT jlong JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppCtor
         (JNIEnv *env, jclass cls) {
     auto* spp = new SentencePieceProcessor();
     return (jlong) spp;
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppDtor
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDtor
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDtor
         (JNIEnv *env, jclass cls, jlong ptr) {
     auto* spp = (SentencePieceProcessor*) ptr;
     delete spp;
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppLoad
  * Signature: (JLjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoad
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoad
         (JNIEnv *env, jclass cls, jlong ptr, jstring filename) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -126,11 +126,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppLoadOrDie
  * Signature: (JLjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoadOrDie
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoadOrDie
         (JNIEnv *env, jclass cls, jlong ptr, jstring filename) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -142,11 +142,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppLoadFromSerializedProto
  * Signature: (J[B)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoadFromSerializedProto
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoadFromSerializedProto
         (JNIEnv *env, jclass cls, jlong ptr, jbyteArray serialized) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -160,11 +160,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppSetEncodeExtraOptions
  * Signature: (JLjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSetEncodeExtraOptions
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSetEncodeExtraOptions
         (JNIEnv *env, jclass cls, jlong ptr, jstring extra_option) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -178,11 +178,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppSetDecodeExtraOptions
  * Signature: (JLjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSetDecodeExtraOptions
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSetDecodeExtraOptions
         (JNIEnv *env, jclass cls, jlong ptr, jstring extra_option) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -196,11 +196,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppSetVocabulary
  * Signature: (J[Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSetVocabulary
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSetVocabulary
         (JNIEnv *env, jclass cls, jlong ptr, jobjectArray array) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -218,11 +218,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppResetVocabulary
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppResetVocabulary
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppResetVocabulary
         (JNIEnv *env, jclass cls, jlong ptr) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -231,11 +231,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppLoadVocabulary
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoadVocabulary
+JNIEXPORT void JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppLoadVocabulary
         (JNIEnv *env, jclass cls, jlong ptr, jstring filename, jint threshold) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -249,11 +249,11 @@ JNIEXPORT void JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppEncodeAsPieces
  * Signature: (JLjava/lang/String;)[Ljava/lang/String;
  */
-JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEncodeAsPieces
+JNIEXPORT jobjectArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEncodeAsPieces
         (JNIEnv *env, jclass cls, jlong ptr, jstring input) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -271,11 +271,11 @@ JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_to
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppEncodeAsIds
  * Signature: (JLjava/lang/String;)[I
  */
-JNIEXPORT jintArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEncodeAsIds
+JNIEXPORT jintArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEncodeAsIds
         (JNIEnv *env, jclass cls, jlong ptr, jstring input) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -293,11 +293,11 @@ JNIEXPORT jintArray JNICALL Java_com_example_subtitles_archive_translation_token
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppDecodePieces
  * Signature: (J[Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodePieces
+JNIEXPORT jstring JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodePieces
         (JNIEnv *env, jclass cls, jlong ptr, jobjectArray array) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -314,11 +314,11 @@ JNIEXPORT jstring JNICALL Java_com_example_subtitles_archive_translation_tokeniz
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppDecodeIds
  * Signature: (J[I)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodeIds
+JNIEXPORT jstring JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodeIds
         (JNIEnv *env, jclass cls, jlong ptr, jintArray array) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -334,11 +334,11 @@ JNIEXPORT jstring JNICALL Java_com_example_subtitles_archive_translation_tokeniz
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppNBestEncodeAsPieces
  * Signature: (JLjava/lang/String;I)[[Ljava/lang/String;
  */
-JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppNBestEncodeAsPieces
+JNIEXPORT jobjectArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppNBestEncodeAsPieces
         (JNIEnv *env, jclass cls, jlong ptr, jstring input, jint nbest_size) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -356,11 +356,11 @@ JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_to
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppNBestEncodeAsIds
  * Signature: (JLjava/lang/String;I)[[I
  */
-JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppNBestEncodeAsIds
+JNIEXPORT jobjectArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppNBestEncodeAsIds
         (JNIEnv *env, jclass cls, jlong ptr, jstring input, jint nbest_size) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -378,11 +378,11 @@ JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_to
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppSampleEncodeAsPieces
  * Signature: (JLjava/lang/String;IF)[Ljava/lang/String;
  */
-JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSampleEncodeAsPieces
+JNIEXPORT jobjectArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSampleEncodeAsPieces
         (JNIEnv *env, jclass cls, jlong ptr, jstring input, jint nbest_size, jfloat alpha) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -400,11 +400,11 @@ JNIEXPORT jobjectArray JNICALL Java_com_example_subtitles_archive_translation_to
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppSampleEncodeAsIds
  * Signature: (JLjava/lang/String;IF)[I
  */
-JNIEXPORT jintArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSampleEncodeAsIds
+JNIEXPORT jintArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSampleEncodeAsIds
         (JNIEnv *env, jclass cls, jlong ptr, jstring input, jint nbest_size, jfloat alpha) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -422,11 +422,11 @@ JNIEXPORT jintArray JNICALL Java_com_example_subtitles_archive_translation_token
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppEncodeAsSerializedProto
  * Signature: (JLjava/lang/String;)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEncodeAsSerializedProto
+JNIEXPORT jbyteArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEncodeAsSerializedProto
         (JNIEnv *env, jclass cls, jlong ptr, jstring input) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -440,11 +440,11 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_toke
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppSampleEncodeAsSerializedProto
  * Signature: (JLjava/lang/String;IF)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSampleEncodeAsSerializedProto
+JNIEXPORT jbyteArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppSampleEncodeAsSerializedProto
         (JNIEnv *env, jclass cls, jlong ptr, jstring input, jint nbest_size, jfloat alpha) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -458,11 +458,11 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_toke
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppNBestEncodeAsSerializedProto
  * Signature: (JLjava/lang/String;I)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppNBestEncodeAsSerializedProto
+JNIEXPORT jbyteArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppNBestEncodeAsSerializedProto
         (JNIEnv *env, jclass cls, jlong ptr, jstring input, jint nbest_size) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -476,11 +476,11 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_toke
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppDecodePiecesAsSerializedProto
  * Signature: (J[Ljava/lang/String;)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodePiecesAsSerializedProto
+JNIEXPORT jbyteArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodePiecesAsSerializedProto
         (JNIEnv *env, jclass cls, jlong ptr, jobjectArray array) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -492,11 +492,11 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_toke
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppDecodeIdsAsSerializedProto
  * Signature: (J[I)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodeIdsAsSerializedProto
+JNIEXPORT jbyteArray JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppDecodeIdsAsSerializedProto
         (JNIEnv *env, jclass cls, jlong ptr, jintArray array) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -507,22 +507,22 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_subtitles_archive_translation_toke
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppGetPieceSize
  * Signature: (J)I
  */
-JNIEXPORT jint JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppGetPieceSize
+JNIEXPORT jint JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppGetPieceSize
         (JNIEnv *env, jclass cls, jlong ptr) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->GetPieceSize();
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppPieceToId
  * Signature: (JLjava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppPieceToId
+JNIEXPORT jint JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppPieceToId
         (JNIEnv *env, jclass cls, jlong ptr, jstring piece) {
     auto* spp = (SentencePieceProcessor*) ptr;
 
@@ -536,11 +536,11 @@ JNIEXPORT jint JNICALL Java_com_example_subtitles_archive_translation_tokenizati
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppIdToPiece
  * Signature: (JI)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIdToPiece
+JNIEXPORT jstring JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIdToPiece
         (JNIEnv *env, jclass cls, jlong ptr, jint id) {
     auto* spp = (SentencePieceProcessor*) ptr;
     if (id < 0 || id >= spp->GetPieceSize()) {
@@ -553,88 +553,88 @@ JNIEXPORT jstring JNICALL Java_com_example_subtitles_archive_translation_tokeniz
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppGetScore
  * Signature: (JI)F
  */
-JNIEXPORT jfloat JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppGetScore
+JNIEXPORT jfloat JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppGetScore
         (JNIEnv *env, jclass cls, jlong ptr, jint id) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->GetScore(id);
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppIsUnknown
  * Signature: (JI)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIsUnknown
+JNIEXPORT jboolean JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIsUnknown
         (JNIEnv *env, jclass cls, jlong ptr, jint id) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->IsUnknown(id);
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppIsControl
  * Signature: (JI)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIsControl
+JNIEXPORT jboolean JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIsControl
         (JNIEnv *env, jclass cls, jlong ptr, jint id) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->IsControl(id);
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppIsUnused
  * Signature: (JI)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIsUnused
+JNIEXPORT jboolean JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppIsUnused
         (JNIEnv *env, jclass cls, jlong ptr, jint id) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->IsUnused(id);
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppUnkId
  * Signature: (J)I
  */
-JNIEXPORT jint JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppUnkId
+JNIEXPORT jint JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppUnkId
         (JNIEnv *env, jclass cls, jlong ptr) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->unk_id();
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppBosId
  * Signature: (J)I
  */
-JNIEXPORT jint JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppBosId
+JNIEXPORT jint JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppBosId
         (JNIEnv *env, jclass cls, jlong ptr) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->bos_id();
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppEosId
  * Signature: (J)I
  */
-JNIEXPORT jint JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEosId
+JNIEXPORT jint JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppEosId
         (JNIEnv *env, jclass cls, jlong ptr) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->eos_id();
 }
 
 /*
- * Class:     com_example_subtitles_archive_translation_tokenization_SentencePieceJNI
+ * Class:     com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI
  * Method:    sppPadId
  * Signature: (J)I
  */
-JNIEXPORT jint JNICALL Java_com_example_subtitles_archive_translation_tokenization_SentencePieceJNI_sppPadId
+JNIEXPORT jint JNICALL Java_com_subrima_subtitles_archive_translation_tokenization_SentencePieceJNI_sppPadId
         (JNIEnv *env, jclass cls, jlong ptr) {
     auto* spp = (SentencePieceProcessor*) ptr;
     return spp->pad_id();

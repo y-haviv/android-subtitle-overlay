@@ -15,7 +15,7 @@ plugins {
 // packaging options, and build types.
 android {
     // Application namespace used for resource packaging and manifest merging
-    namespace 'com.example.subtitles'
+    namespace 'com.subrima.subtitles'
     // Compile SDK version defines the API level used for compilation
     compileSdk 35
 
@@ -25,7 +25,7 @@ android {
     // Specifies application identifiers, SDK targets, versioning, instrumentation,
     // and NDK configuration for native builds.
     defaultConfig {
-        applicationId "com.example.subtitles"
+        applicationId "com.subrima.subtitles"
         minSdk 29
         targetSdk 35
         versionCode 1

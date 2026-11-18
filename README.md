@@ -99,7 +99,7 @@ Assets and Model Metadata
 ```text
 .
 |- app/
-|  |- src/main/java/com/example/subtitles/
+|  |- src/main/java/com/subrima/subtitles/
 |  |  |- model/                 # audio, language, transcription, translation
 |  |  |- view/                  # overlay + settings UI
 |  |  |- view_model/            # MainPipeline + transcriptManager
@@ -126,17 +126,17 @@ Assets and Model Metadata
 
 | Component | Path | Role |
 |---|---|---|
-| App entry point | `app/src/main/java/com/example/subtitles/MainActivity.java` | Permission flow, service startup, pipeline lifecycle |
-| Pipeline coordinator | `app/src/main/java/com/example/subtitles/view_model/MainPipeline.java` | Connects transcription, translation, and overlay updates |
-| Transcription manager | `app/src/main/java/com/example/subtitles/view_model/transcriptManager.java` | Drives capture, LID, Vosk, and optional Whisper correction |
-| Audio capture | `app/src/main/java/com/example/subtitles/model/audio/StreamAudioCapturer.java` | Playback capture in fixed chunks |
-| Transcriber | `app/src/main/java/com/example/subtitles/model/transcription/core/VoskStreamTranscriber.java` | Streaming speech-to-text + model switching |
-| LID | `app/src/main/java/com/example/subtitles/model/language/SileroLanguageDetector.java` | Source-language classification from audio windows |
-| Translation | `app/src/main/java/com/example/subtitles/model/translation/MlKitTranslator.java` | On-device translation and model readiness handling |
-| Speaker change | `app/src/main/java/com/example/subtitles/model/speaker/SpeakerChangeDetector.java` | Embedding-based speaker shift signal |
-| Overlay subtitles | `app/src/main/java/com/example/subtitles/view/overlay/SubtitleOverlayService.java` | Floating subtitle rendering |
-| Overlay toggle | `app/src/main/java/com/example/subtitles/view/overlay/FloatingToggleButtonService.java` | Floating on/off control |
-| Vosk model manager | `app/src/main/java/com/example/subtitles/model/transcription/core/LanguageModelManager.java` | Model download, extract, cache, fallback |
+| App entry point | `app/src/main/java/com/subrima/subtitles/MainActivity.java` | Permission flow, service startup, pipeline lifecycle |
+| Pipeline coordinator | `app/src/main/java/com/subrima/subtitles/view_model/MainPipeline.java` | Connects transcription, translation, and overlay updates |
+| Transcription manager | `app/src/main/java/com/subrima/subtitles/view_model/transcriptManager.java` | Drives capture, LID, Vosk, and optional Whisper correction |
+| Audio capture | `app/src/main/java/com/subrima/subtitles/model/audio/StreamAudioCapturer.java` | Playback capture in fixed chunks |
+| Transcriber | `app/src/main/java/com/subrima/subtitles/model/transcription/core/VoskStreamTranscriber.java` | Streaming speech-to-text + model switching |
+| LID | `app/src/main/java/com/subrima/subtitles/model/language/SileroLanguageDetector.java` | Source-language classification from audio windows |
+| Translation | `app/src/main/java/com/subrima/subtitles/model/translation/MlKitTranslator.java` | On-device translation and model readiness handling |
+| Speaker change | `app/src/main/java/com/subrima/subtitles/model/speaker/SpeakerChangeDetector.java` | Embedding-based speaker shift signal |
+| Overlay subtitles | `app/src/main/java/com/subrima/subtitles/view/overlay/SubtitleOverlayService.java` | Floating subtitle rendering |
+| Overlay toggle | `app/src/main/java/com/subrima/subtitles/view/overlay/FloatingToggleButtonService.java` | Floating on/off control |
+| Vosk model manager | `app/src/main/java/com/subrima/subtitles/model/transcription/core/LanguageModelManager.java` | Model download, extract, cache, fallback |
 
 ## Requirements
 
@@ -236,7 +236,7 @@ Recommendation:
 
 ### 6) SentencePiece and Falcon (archive experiments)
 
-- `SentencePiece` and `Falcon` code is under `app/src/main/java/com/example/subtitles/archive/`.
+- `SentencePiece` and `Falcon` code is under `app/src/main/java/com/subrima/subtitles/archive/`.
 - They are not in the active runtime path.
 - You may ignore them for normal operation.
 

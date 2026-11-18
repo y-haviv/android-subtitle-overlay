@@ -79,7 +79,7 @@ void inputStreamClose(void * ctx) {
 }
 
 JNIEXPORT jlong JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_initContextFromInputStream(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_initContextFromInputStream(
         JNIEnv *env, jobject thiz, jobject input_stream) {
     UNUSED(thiz);
 
@@ -155,7 +155,7 @@ static struct whisper_context *whisper_init_from_asset(
 }
 
 JNIEXPORT jlong JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_initContextFromAsset(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_initContextFromAsset(
         JNIEnv *env, jobject thiz, jobject assetManager, jstring asset_path_str) {
     UNUSED(thiz);
     struct whisper_context *context = NULL;
@@ -169,7 +169,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 // Called from Java: WhisperLib.initContext(String modelPath)
 // Returns a native pointer to the Whisper context as jlong
 JNIEXPORT jlong JNICALL 
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_initContext(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_initContext(
         JNIEnv *env, jobject thiz, jstring model_path_str) {
     UNUSED(thiz);
     struct whisper_context *context = NULL;
@@ -189,7 +189,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 // Frees the Whisper context memory created with initContext
 // Called from Java: WhisperLib.freeContext(long contextPtr)
 JNIEXPORT void JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_freeContext(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_freeContext(
         JNIEnv *env, jobject thiz, jlong context_ptr) {
     UNUSED(env);
     UNUSED(thiz);
@@ -200,7 +200,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 // Runs full transcription on a float[] array of audio samples.
 // Called from Java: WhisperLib.fullTranscribe(long ctx, int numThreads, float[] audioData)
 JNIEXPORT void JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_fullTranscribe(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_fullTranscribe(
         JNIEnv *env, jobject thiz, jlong context_ptr, jint num_threads, jfloatArray audio_data) {
     UNUSED(thiz);
     struct whisper_context *context = (struct whisper_context *) context_ptr;
@@ -236,7 +236,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 // Returns number of segments produced by the last whisper_full() call
 // Java: WhisperLib.getTextSegmentCount(long ctx)
 JNIEXPORT jint JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentCount(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentCount(
         JNIEnv *env, jobject thiz, jlong context_ptr) {
     UNUSED(env);
     UNUSED(thiz);
@@ -247,7 +247,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 // Returns the transcription text of the segment at the given index.
 // Java: WhisperLib.getTextSegment(long ctx, int index)
 JNIEXPORT jstring JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegment(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegment(
         JNIEnv *env, jobject thiz, jlong context_ptr, jint index) {
     UNUSED(thiz);
     struct whisper_context *context = (struct whisper_context *) context_ptr;
@@ -257,7 +257,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 }
 // Returns the start time of the segment at the given index (Whisper 10 ms units)
 JNIEXPORT jlong JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentT0(JNIEnv *env, jobject thiz,jlong context_ptr, jint index) {
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentT0(JNIEnv *env, jobject thiz,jlong context_ptr, jint index) {
     UNUSED(thiz);
     struct whisper_context *context = (struct whisper_context *) context_ptr;
     const int64_t t0 = whisper_full_get_segment_t0(context, index);
@@ -265,7 +265,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 }
 // Returns the end time of the segment at the given index (Whisper 10 ms units)
 JNIEXPORT jlong JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentT1(JNIEnv *env, jobject thiz,jlong context_ptr, jint index) {
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getTextSegmentT1(JNIEnv *env, jobject thiz,jlong context_ptr, jint index) {
     UNUSED(thiz);
     struct whisper_context *context = (struct whisper_context *) context_ptr;
     const int64_t t1 = whisper_full_get_segment_t1(context, index);
@@ -273,7 +273,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getSystemInfo(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getSystemInfo(
         JNIEnv *env, jobject thiz
 ) {
     UNUSED(thiz);
@@ -283,7 +283,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_benchMemcpy(JNIEnv *env, jobject thiz,
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_benchMemcpy(JNIEnv *env, jobject thiz,
                                                         jint n_threads) {
     UNUSED(thiz);
     const char *bench_ggml_memcpy = whisper_bench_memcpy_str(n_threads);
@@ -293,7 +293,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_benchGgmlMulMat(JNIEnv *env, jobject thiz,
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_benchGgmlMulMat(JNIEnv *env, jobject thiz,
                                                             jint n_threads) {
     UNUSED(thiz);
     const char *bench_ggml_mul_mat = whisper_bench_ggml_mul_mat_str(n_threads);
@@ -309,7 +309,7 @@ Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib
  * Java: WhisperLib.getDetectedLanguage(long ctx)
  */
 JNIEXPORT jstring JNICALL
-Java_com_example_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getDetectedLanguage(
+Java_com_subrima_subtitles_model_transcription_correction_whisper_lib_WhisperLib_getDetectedLanguage(
         JNIEnv* env, jobject thiz, jlong ctx_ptr) {
     UNUSED(thiz);
 
